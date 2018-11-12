@@ -1,0 +1,17 @@
+{
+  "name": "@kuaizi/kz-table",
+  "version": "2.0.0",
+  "description": "It's set auto columns width of el-table, fit columns",
+  "main": "kz-table.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vue serve",
+    "build": "vue build"
+  },
+  "keywords": ["el-table", "element-ui"],
+  "author": "tommyshao",
+  "license": "MIT",
+  "dependencies": {
+    "element-ui": "^2.4.9"
+  }
+}
