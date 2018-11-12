@@ -26,3 +26,7 @@ vue serve
 ```
 vue build
 ```
+
+
+---
+(c) www.kuaizi.ai
