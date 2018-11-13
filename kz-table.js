@@ -54,7 +54,6 @@ export default {
         // exclude el-table gutter
         if (!curColumn) return
         // It's not exist in fit-columns array
-        console.log(this.fitColumns, curColumn.property)
         if (this.fitColumns.length && !this.fitColumns.includes(curColumn.property)) return
 
         // thead th
