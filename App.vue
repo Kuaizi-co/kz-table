@@ -138,7 +138,8 @@ export default {
     }
   },
   methods: {
-    formatter (row, column, cellValue, index) {
+    // formatter (row, column, cellValue, index) {
+    formatter (row, column, cellValue) {
       // 获取字段名
       // console.log(column.property)
       return currency(cellValue)
