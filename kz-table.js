@@ -32,19 +32,20 @@ export default {
   },
   watch: {
     data () {
-      this.setAutoFitColumn()
+      this.$nextTick(() => this.setAutoFitColumn())
     },
     columns () {
-      this.setAutoFitColumn()
+      this.$nextTick(() => this.setAutoFitColumn())
     }
   },
   methods: {
     setAutoFitColumn () {
       // It's false, Use original el-table
       if (!this.autoFitColumn) return
+      if (!this.data) return
       // collection data by columns property(field name)
       const objData = flattenData(this.data)
-      this.$nextTick(() => this.handlerAutoFitColumn(objData))
+      this.handlerAutoFitColumn(objData)
     },
     handlerAutoFitColumn (data) {
       // adapt to 1px border
@@ -62,10 +63,10 @@ export default {
         // thead th
         const headerColRect = fnGetTextRect(col.label, this.fitStyles.header)
         const headerColWidth = headerColRect.width + borderWidth || curColumn.minWidth
-        const maxLen = data[curColumn.property] ? Math.max.apply(null, data[curColumn.property].map(n => col.formatter ? col.formatter([], col, n).length : n.length)) : 0
+        const maxLen = data[curColumn.property] ? Math.max.apply(null, data[curColumn.property].map(n => col.formatter ? col.formatter([], col, n || '').length : String(n || '').length.length)) : 0
 
         // tbody td
-        const strMaxLenItem = data[curColumn.property] ? data[curColumn.property].find(prop => prop.length === maxLen) : ''
+        const strMaxLenItem = data[curColumn.property] ? data[curColumn.property].find(prop => String(prop || '').length === maxLen) : ''
         const bodyColRect = fnGetTextRect(strMaxLenItem, this.fitStyles.body)
         const bodyColWidth = bodyColRect.width + borderWidth || curColumn.minWidth
 
