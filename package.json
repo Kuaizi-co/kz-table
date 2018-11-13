@@ -5,7 +5,6 @@
   "main": "kz-table.js",
   "repository": "https://github.com/kuaizi-co/kz-table.git",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "vue serve",
     "build": "vue build",
     "deploy": "deploy.sh"
