@@ -26,8 +26,7 @@ export default {
     },
     // we can set some columns auto-fit
     fitColumns: {
-      type: Array,
-      default: () => []
+      type: Array
     }
   },
   watch: {
@@ -56,14 +55,14 @@ export default {
       this.columns.forEach(col => {
         const curColumn = columns.find(item => item.id === col.id)
         // exclude el-table gutter
-        if (!curColumn) return
+        if (!curColumn || (this.fitColumns && this.fitColumns.length === 0)) return
         // It's not exist in fit-columns array
-        if (this.fitColumns.length && !this.fitColumns.includes(curColumn.property)) return
+        if (this.fitColumns && this.fitColumns.length && !this.fitColumns.includes(curColumn.property)) return
 
         // thead th
         const headerColRect = fnGetTextRect(col.label, this.fitStyles.header)
         const headerColWidth = headerColRect.width + borderWidth || curColumn.minWidth
-        const maxLen = data[curColumn.property] ? Math.max.apply(null, data[curColumn.property].map(n => col.formatter ? col.formatter([], col, n || '').length : String(n || '').length.length)) : 0
+        const maxLen = data[curColumn.property] ? Math.max.apply(null, data[curColumn.property].map(n => col.formatter ? col.formatter([], col, n || '').length : String(n || '').length)) : 0
 
         // tbody td
         const strMaxLenItem = data[curColumn.property] ? data[curColumn.property].find(prop => String(prop || '').length === maxLen) : ''
@@ -76,7 +75,6 @@ export default {
                                   col.sortable ? bodyColWidth + 24: bodyColWidth
         ))
       })
-
       // run once layout api
       this.doLayout()
       this.$emit('doLayout')
