@@ -14,11 +14,14 @@ export default {
     },
     // the css style width thead th and tbody td
     fitStyles: {
-      header: {
-        type: String
-      },
-      body: {
-        type: String
+      default: () => ({
+        header: 'font-size: 14px; font-weight: bold; padding: 0 10px;',
+        body: 'font-size: 14px; padding: 0 10px;'
+      }),
+      validator (option) {
+        if (typeof option !== 'object' || !option) return false
+        if (!('header' in option) || !('body' in option)) return false
+        return true
       }
     },
     // we can set some columns auto-fit

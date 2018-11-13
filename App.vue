@@ -16,7 +16,6 @@
     :data="data"
     border
     auto-fit-column
-    :fit-styles="styles"
   >
     <el-table-column
       label="姓名2222"
