@@ -6,9 +6,13 @@ test
 .babelrc
 .editorconfig
 .travis.yml
+.gitlab-ci.yml
+deploy.sh
 CHANGELOG.md
 package-lock.json
 TODO.md
 .vscode
 doc
 dist
+vue.config.js
+App.vue

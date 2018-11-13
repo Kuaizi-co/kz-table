@@ -7,10 +7,12 @@ export default {
   name: 'ElTable',
   extends: Table,
   props: {
+    // Set auto-fit column's width
     autoFitColumn: {
       type: Boolean,
       default: false
     },
+    // the css style width thead th and tbody td
     fitStyles: {
       header: {
         type: String
@@ -18,47 +20,60 @@ export default {
       body: {
         type: String
       }
+    },
+    // we can set some columns auto-fit
+    fitColumns: {
+      type: Array,
+      default: () => []
     }
   },
   watch: {
-    data: {
-      handler (data) {
-        if (!this.autoFitColumn) return
-        const objData = flattenData(data)
-        this.$nextTick(() => this.handlerAutoFitColumn(objData))
-      }
+    data () {
+      this.setAutoFitColumn()
     },
-    columns: {
-      handler () {
-        const objData = flattenData(this.data)
-        this.$nextTick(() => this.handlerAutoFitColumn(objData))
-      }
+    columns () {
+      this.setAutoFitColumn()
     }
   },
   methods: {
+    setAutoFitColumn () {
+      // It's false, Use original el-table
+      if (!this.autoFitColumn) return
+      // collection data by columns property(field name)
+      const objData = flattenData(this.data)
+      this.$nextTick(() => this.handlerAutoFitColumn(objData))
+    },
     handlerAutoFitColumn (data) {
+      // adapt to 1px border
+      const borderWidth = this.border ? 1 : 0
+      // the api is get data by columns property
       const columns = this.layout.getFlattenColumns()
-      const thisColumns = this.columns
-
-      thisColumns.forEach(col => {
+      // Each columns's settings
+      this.columns.forEach(col => {
         const curColumn = columns.find(item => item.id === col.id)
+        // exclude el-table gutter
         if (!curColumn) return
+        // It's not exist in fit-columns array
+        if (this.fitColumns.length && !this.fitColumns.includes(curColumn.property)) return
+
+        // thead th
         const headerColRect = fnGetTextRect(col.label, this.fitStyles.header)
-        // 1px 边框
-        const headerColWidth = headerColRect.width + 1 || curColumn.minWidth
-        const maxLen = data[curColumn.property] ? Math.max.apply(null, data[curColumn.property].map(n => n.length)) : 0
+        const headerColWidth = headerColRect.width + borderWidth || curColumn.minWidth
+        const maxLen = data[curColumn.property] ? Math.max.apply(null, data[curColumn.property].map(n => col.formatter ? col.formatter([], col, n).length : n.length)) : 0
+
+        // tbody td
         const strMaxLenItem = data[curColumn.property] ? data[curColumn.property].find(prop => prop.length === maxLen) : ''
         const bodyColRect = fnGetTextRect(strMaxLenItem, this.fitStyles.body)
-        const bodyColWidth = bodyColRect.width + 1 || curColumn.minWidth
+        const bodyColWidth = bodyColRect.width + borderWidth || curColumn.minWidth
 
-        // 调整各列宽最小宽度
+        // ajust minimum width of every columns
         curColumn.minWidth = Math.ceil(Math.max(
                                   col.sortable ? headerColWidth + 24 : headerColWidth,
                                   col.sortable ? bodyColWidth + 24: bodyColWidth
         ))
       })
 
-      // 调用表格组件布局函数
+      // run once layout api
       this.doLayout()
       this.$emit('doLayout')
     }
