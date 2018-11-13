@@ -3,6 +3,9 @@
 # abort on errors
 set -e
 
+git config --global user.name "kz-fe"
+git config --global user.email "shaojinhong@kuaizi.co"
+
 # build
 npm run build
 
@@ -14,7 +17,7 @@ cd dist
 
 git init
 git add -A
-git commit -m 'deploy'
+git commit -m "deploy $TRAVIS_COMMIT_MSG"
 
 # if you are deploying to https://<USERNAME>.github.io
 # git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git master

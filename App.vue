@@ -140,7 +140,7 @@ export default {
   methods: {
     formatter (row, column, cellValue, index) {
       // 获取字段名
-      console.log(column.property)
+      // console.log(column.property)
       return currency(cellValue)
     },
     handleAddColumn () {
