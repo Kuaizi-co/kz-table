@@ -57,7 +57,7 @@
     border
     auto-fit-column
     :fit-styles="styles"
-    :fit-columns="['Name', 'Age', 'salary']"
+    :fit-columns="['name', 'age', 'salary']"
   >
     <el-table-column
       label="Name"
