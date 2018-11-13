@@ -10,7 +10,10 @@
     "build": "vue build",
     "deploy": "deploy.sh"
   },
-  "keywords": ["el-table", "element-ui"],
+  "keywords": [
+    "el-table",
+    "element-ui"
+  ],
   "author": "tommyshao",
   "license": "MIT",
   "dependencies": {
