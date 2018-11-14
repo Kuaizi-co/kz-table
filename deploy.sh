@@ -23,6 +23,6 @@ git commit -m "$TRAVIS_COMMIT_MSG"
 # git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git master
 
 # if you are deploying to https://<USERNAME>.github.io/<REPO>
-git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:gh-pages
+git push --force --quiet "https://${GH_TOKEN}@github.com/Kuaizi-co/kz-table.git" master:gh-pages
 
 cd -
