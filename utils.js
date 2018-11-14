@@ -33,7 +33,26 @@ export const flattenData = function (data) {
   }, {})
 }
 
+// Get  string length of each item in array
+export const maxNumberInArray = function (data, formatter, row = [], col) {
+  let result = {
+    value: '',
+    length: 0,
+    index: -1
+  }
+
+  Array.isArray(data) && data.forEach((value, index) => {
+    let strVal = String(formatter ? formatter(row, col, value || '') : value || '')
+    if (strVal.length > result.length) {
+      result = { value: strVal, length: strVal.length, index }
+    }
+  })
+
+  return result
+}
+
 export default {
   getTextRect,
-  flattenData
+  flattenData,
+  maxNumberInArray
 }

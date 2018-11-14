@@ -1,5 +1,5 @@
 import { Table } from 'element-ui'
-import { getTextRect, flattenData } from './utils'
+import { getTextRect, flattenData, maxNumberInArray } from './utils'
 
 const fnGetTextRect = getTextRect()
 
@@ -62,17 +62,16 @@ export default {
         // thead th
         const headerColRect = fnGetTextRect(col.label, this.fitStyles.header)
         const headerColWidth = headerColRect.width + borderWidth || curColumn.minWidth
-        const maxLen = data[curColumn.property] ? Math.max.apply(null, data[curColumn.property].map(n => col.formatter ? col.formatter([], col, n || '').length : String(n || '').length)) : 0
 
         // tbody td
-        const strMaxLenItem = data[curColumn.property] ? data[curColumn.property].find(prop => String(prop || '').length === maxLen) : ''
-        const bodyColRect = fnGetTextRect(strMaxLenItem, this.fitStyles.body)
+        const objMaxLenItem = maxNumberInArray(data[curColumn.property], col.formatter, [], col)
+        const bodyColRect = fnGetTextRect(objMaxLenItem.value, this.fitStyles.body)
         const bodyColWidth = bodyColRect.width + borderWidth || curColumn.minWidth
 
         // ajust minimum width of every columns
         curColumn.minWidth = Math.ceil(Math.max(
-                                  col.sortable ? headerColWidth + 24 : headerColWidth,
-                                  col.sortable ? bodyColWidth + 24: bodyColWidth
+                                  col.sortable ? headerColWidth + 17 : headerColWidth,
+                                  bodyColWidth
         ))
       })
       // run once layout api
