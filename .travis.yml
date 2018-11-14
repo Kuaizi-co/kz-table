@@ -1,7 +1,7 @@
 language: node_js
 node_js: stable
 before_install:
-- export TRAVIS_COMMIT_MSG="[发布了] $(git log --format='%h - %B' --no-merges -n 1)"
+- export TRAVIS_COMMIT_MSG="$(git log --format='%h - %B' --no-merges -n 1)"
 - export TRAVIS_COMMIT_USER="$(git log --no-merges -n 1 --format=%an)"
 - export TRAVIS_COMMIT_EMAIL="$(git log --no-merges -n 1 --format=%ae)"
 install:
@@ -15,3 +15,6 @@ notifications:
       - shaojinhong@kuaizi.co
     on_success: always # default: change
     on_failure: never # default: always
+    template:
+      - '$TRAVIS_COMMIT_USER ($TRAVIS_COMMIT_EMAIL): 发表了周刊 (<a href="https://kuaizi-co.github.io/weekly/$TRAVIS_COMMIT_MSG">TRAVIS_COMMIT_MSG</a>)'
+    format: html

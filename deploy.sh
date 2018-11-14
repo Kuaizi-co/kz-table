@@ -17,7 +17,7 @@ cd dist
 
 git init
 git add -A
-git commit -m "$TRAVIS_COMMIT_USER($TRAVIS_COMMIT_EMAIL) $TRAVIS_COMMIT_MSG"
+git commit -m "$TRAVIS_COMMIT_USER($TRAVIS_COMMIT_EMAIL) [发布了] $TRAVIS_COMMIT_MSG"
 
 # if you are deploying to https://<USERNAME>.github.io
 # git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git master
