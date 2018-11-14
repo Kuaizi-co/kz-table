@@ -15,3 +15,5 @@ notifications:
       - shaojinhong@kuaizi.co
     on_success: always # default: change
     on_failure: never # default: always
+global:
+  - GH_REF: github.com/kuaizi-co/kz-table.git  #设置GH_REF，注意更改yourname
