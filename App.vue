@@ -38,7 +38,7 @@
       label="年龄"
       width="100"
     >
-      <template slot="header" slot-scope="slot">
+      <template slot="header">
         <el-input
           v-model="search"
           size="mini"
@@ -84,7 +84,7 @@
       label="年龄"
       width="100"
     >
-      <template slot="header" slot-scope="slot">
+      <template slot="header">
         <el-input
           v-model="search"
           size="mini"

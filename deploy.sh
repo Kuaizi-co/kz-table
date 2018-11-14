@@ -17,12 +17,12 @@ cd dist
 
 git init
 git add -A
-git commit -m "deploy $TRAVIS_COMMIT_MSG"
+git commit -m "$TRAVIS_COMMIT_MSG"
 
 # if you are deploying to https://<USERNAME>.github.io
 # git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git master
 
 # if you are deploying to https://<USERNAME>.github.io/<REPO>
-git push -f https://github.com/Kuaizi-co/kz-table.git master:gh-pages
+git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:gh-pages
 
 cd -
