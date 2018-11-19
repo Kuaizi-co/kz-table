@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "vue serve",
     "build": "vue build kz-table.js -t lib -n kzTable",
+    "docs:build": "vue build",
     "deploy": "deploy.sh"
   },
   "keywords": [
