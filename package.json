@@ -6,10 +6,10 @@
   "repository": "https://github.com/kuaizi-co/kz-table.git",
   "scripts": {
     "dev": "vue serve",
-    "build": "set NODE_ENV=publish&& vue build",
-    "lib:build": "vue build kz-table.js -t lib -n kzTable",
+    "build": "set NODE_ENV=build&&vue build",
+    "lib:build": "set MODE=lib&&vue build kz-table.js -t lib -n kzTable",
     "deploy": "sh deploy.sh",
-    "review": "http-server -o"
+    "review": "npm run build && http-server -o"
   },
   "keywords": [
     "el-table",

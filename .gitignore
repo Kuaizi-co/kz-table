@@ -82,3 +82,4 @@ dist
 .vscode
 
 kz-table/
+dist/
