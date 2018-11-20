@@ -8,7 +8,6 @@
     "dev": "vue serve",
     "build": "set NODE_ENV=publish&& vue build",
     "lib:build": "vue build kz-table.js -t lib -n kzTable",
-    "prepare": "npm run lib:build",
     "deploy": "deploy.sh",
     "review": "http-server -o"
   },
