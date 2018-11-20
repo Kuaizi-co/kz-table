@@ -7,7 +7,7 @@ git config --global user.name "kz-fe"
 git config --global user.email "shaojinhong@kuaizi.co"
 
 # build
-npm run docs:build
+npm run build
 
 # navigate into the build output directory
 cd kz-table
