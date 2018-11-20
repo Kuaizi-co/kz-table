@@ -10,7 +10,7 @@ git config --global user.email "shaojinhong@kuaizi.co"
 npm run docs:build
 
 # navigate into the build output directory
-cd dist
+cd kz-table
 
 # if you are deploying to a custom domain
 # echo 'www.example.com' > CNAME
