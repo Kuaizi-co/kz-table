@@ -6,9 +6,9 @@
   "repository": "https://github.com/kuaizi-co/kz-table.git",
   "scripts": {
     "dev": "vue serve",
-    "build": "vue build kz-table.js -t lib -n kzTable",
-    "docs:build": "set NODE_ENV=publish&& vue build",
-    "prepublish": "npm run build",
+    "build": "set NODE_ENV=publish&& vue build",
+    "lib:build": "vue build kz-table.js -t lib -n kzTable",
+    "prepare": "npm run lib:build",
     "deploy": "deploy.sh",
     "review": "http-server -o"
   },
