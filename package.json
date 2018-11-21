@@ -1,6 +1,6 @@
 {
   "name": "@kuaizi/kz-table",
-  "version": "2.0.9",
+  "version": "2.0.10",
   "description": "It's set auto columns width to el-table, fit columns",
   "main": "./dist/kzTable.umd.min.js",
   "repository": "https://github.com/kuaizi-co/kz-table.git",
