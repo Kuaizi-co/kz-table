@@ -1,5 +1,5 @@
 import { Table } from 'element-ui'
-import { getTextRect, flattenData, maxNumberInArray } from './utils'
+import { getTextRect, flattenData, maxNumberInArray, getColumnSummary } from './utils'
 
 const fnGetTextRect = getTextRect()
 
@@ -53,8 +53,10 @@ export default {
       const borderWidth = this.border ? 1 : 0
       // the api is get data by columns property
       const columns = this.layout.getFlattenColumns()
-      // Each columns's settings
-      this.columns.forEach(col => {
+      // show-summary
+      const summaryColumns = getColumnSummary(this)
+      // Each column's settings
+      this.columns.forEach((col, idx) => {
         const curColumn = columns.find(item => item.id === col.id)
         // exclude el-table gutter
         if (!curColumn || (this.fitColumns && this.fitColumns.length === 0)) return
@@ -70,10 +72,15 @@ export default {
         const bodyColRect = fnGetTextRect(objMaxLenItem.value, this.fitStyles.body)
         const bodyColWidth = bodyColRect.width + borderWidth || curColumn.minWidth
 
-        // ajust minimum width of every columns
+        // summary
+        const summaryColRect = fnGetTextRect(summaryColumns[idx], this.fitStyles.body)
+        const summaryColWidth = summaryColRect.width + borderWidth || curColumn.minWidth
+
+        // adjust minimum width of every columns
         curColumn.minWidth = Math.ceil(Math.max(
                                   col.sortable ? headerColWidth + 17 : headerColWidth,
-                                  bodyColWidth
+                                  bodyColWidth,
+                                  summaryColWidth
         ))
       })
       // run once layout api

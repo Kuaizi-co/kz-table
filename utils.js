@@ -51,8 +51,48 @@ export const maxNumberInArray = function (data, formatter, row = [], col) {
   return result
 }
 
+// https://github.com/ElemeFE/element/blob/dev/packages/table/src/table-footer.js#L8
+export const getColumnSummary = (instance) => {
+  let sums = [];
+  if (instance.summaryMethod) {
+    sums = instance.summaryMethod({ columns: instance.columns, data: instance.store.states.data });
+  } else {
+    instance.columns.forEach((column, index) => {
+      if (index === 0) {
+        sums[index] = instance.sumText;
+        return;
+      }
+      const values = instance.store.states.data.map(item => Number(item[column.property]));
+      const precisions = [];
+      let notNumber = true;
+      values.forEach(value => {
+        if (!isNaN(value)) {
+          notNumber = false;
+          let decimal = ('' + value).split('.')[1];
+          precisions.push(decimal ? decimal.length : 0);
+        }
+      });
+      const precision = Math.max.apply(null, precisions);
+      if (!notNumber) {
+        sums[index] = values.reduce((prev, curr) => {
+          const value = Number(curr);
+          if (!isNaN(value)) {
+            return parseFloat((prev + curr).toFixed(Math.min(precision, 20)));
+          } else {
+            return prev;
+          }
+        }, 0);
+      } else {
+        sums[index] = '';
+      }
+    });
+  }
+  return sums
+}
+
 export default {
   getTextRect,
   flattenData,
-  maxNumberInArray
+  maxNumberInArray,
+  getColumnSummary
 }

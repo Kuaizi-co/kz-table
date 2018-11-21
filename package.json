@@ -20,5 +20,8 @@
   "dependencies": {
     "element-ui": "^2.4.9"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "conventional-changelog-cli": "^2.0.11",
+    "release-it": "^8.0.0"
+  }
 }

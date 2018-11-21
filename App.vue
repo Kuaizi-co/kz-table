@@ -93,6 +93,55 @@
     </el-table-column>
   </el-table>
 
+   <h2>Show Summary</h2>
+
+  <el-button @click="handleAddColumn" type="primary">Add Column</el-button>
+  <el-button @click="handleAddRows" type="success">Add Row</el-button>
+  <el-table 
+    :data="data"
+    border
+    auto-fit-column
+    show-summary
+    :summary-method="summaryMethod"
+    :fit-styles="styles"
+    :fit-columns="['name', 'age', 'salary']"
+  >
+    <el-table-column
+      label="Name"
+      prop="name"
+      fixed
+    ></el-table-column>
+    <el-table-column
+      label="Age"
+      prop="age"
+    ></el-table-column>
+    <el-table-column
+      label="Salary"
+      prop="salary"
+      align="right"
+      :formatter="formatter"
+    ></el-table-column>
+    <el-table-column
+      v-for="(option, index) in options"
+      :label="option.label"
+      :prop="option.prop"
+      :key="index"
+      sortable
+      auto-fit
+    ></el-table-column>
+    <el-table-column
+      label="年龄"
+      width="100"
+    >
+      <template slot="header">
+        <el-input
+          v-model="search"
+          size="mini"
+          placeholder="Type to search"/>
+      </template>
+    </el-table-column>
+  </el-table>
+
   <div class="copyright">&copy; www.kuaizi.ai</div>
 </div>
 </template>
@@ -154,6 +203,31 @@ export default {
         salary: 15000,
         remark: 'sdfsdfsdf什么备注，不准换行啊啊啊啊啊啊啊啊啊啊啊'
       })
+    },
+    summaryMethod ({ columns, data }) {
+      const showSummaryCol = ['salary']
+      const sums = []
+      columns.forEach((column, index) => {
+        if (index === 0) {
+          sums[index] = '合计'
+          return
+        }
+        const values = data.map(item => Number(item[column.property]))
+        if (!values.every(value => isNaN(value)) && showSummaryCol.includes(column.property)) {
+          sums[index] = values.reduce((prev, curr) => {
+            const value = Number(curr)
+            if (!isNaN(value)) {
+              return prev + curr
+            } else {
+              return prev
+            }
+          }, 0)
+          sums[index] = currency(sums[index])
+        } else {
+          sums[index] = ''
+        }
+      })
+      return sums
     }
   }
 }
