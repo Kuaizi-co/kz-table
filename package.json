@@ -1,6 +1,6 @@
 {
   "name": "@kuaizi/kz-table",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "description": "It's set auto columns width to el-table, fit columns",
   "main": "./dist/kzTable.umd.min.js",
   "repository": "https://github.com/kuaizi-co/kz-table.git",
@@ -9,7 +9,8 @@
     "build": "set NODE_ENV=build&&vue build",
     "lib:build": "set MODE=lib&&vue build kz-table.js -t lib -n kzTable",
     "deploy": "sh deploy.sh",
-    "review": "npm run build && http-server -o"
+    "review": "npm run build && http-server -o",
+    "release": "release-it"
   },
   "keywords": [
     "el-table",
