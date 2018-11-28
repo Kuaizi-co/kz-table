@@ -35,10 +35,10 @@ export default {
     data () {
       this.$nextTick(() => this.setAutoFitColumn())
     },
-    columns (columns) {
+    columns () {
       this.$nextTick(() => this.setAutoFitColumn())
     },
-    fitColumns (v) {
+    fitColumns () {
       this.$nextTick(() => this.setAutoFitColumn())
     }
   },

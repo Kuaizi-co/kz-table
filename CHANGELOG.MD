@@ -1,3 +1,11 @@
+## [2.0.12](https://github.com/kuaizi-co/kz-table/compare/v2.0.11...v2.0.12) (2018-11-28)
+
+
+
+## [2.0.12](https://github.com/kuaizi-co/kz-table/compare/v2.0.11...v2.0.12) (2018-11-28)
+
+
+
 ## [2.0.11](https://github.com/kuaizi-co/kz-table/compare/v2.0.10...v2.0.11) (2018-11-28)
 
 
