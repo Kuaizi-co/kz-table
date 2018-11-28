@@ -97,6 +97,8 @@
 
   <el-button @click="handleAddColumn" type="primary">Add Column</el-button>
   <el-button @click="handleAddRows" type="success">Add Row</el-button>
+  <el-button @click="handleReverseColumn" type="success">Reverse Column</el-button>
+  <el-button @click="handleDynamicAutoColumn" type="success">Dynamic auth-width Column</el-button>
   <el-table 
     :data="data"
     border
@@ -104,14 +106,17 @@
     show-summary
     :summary-method="summaryMethod"
     :fit-styles="styles"
-    :fit-columns="['name', 'age', 'salary']"
+    :fit-columns="fitColumns"
   >
     <el-table-column
-      label="Name"
-      prop="name"
+      v-for="(column, cIndex) in autoWidthColumns"
+      :label="column.label"
+      :prop="column.name"
+      :key="cIndex"
+      :formatter="formatter"
       fixed
     ></el-table-column>
-    <el-table-column
+    <!-- <el-table-column
       label="Age"
       prop="age"
     ></el-table-column>
@@ -120,12 +125,12 @@
       prop="salary"
       align="right"
       :formatter="formatter"
-    ></el-table-column>
+    ></el-table-column> -->
     <el-table-column
       v-for="(option, index) in options"
       :label="option.label"
       :prop="option.prop"
-      :key="index"
+      :key="10 + index"
       sortable
       auto-fit
     ></el-table-column>
@@ -180,15 +185,39 @@ export default {
         }
       ],
       options: [],
+      autoWidthColumns: [
+        {
+          name: 'name',
+          label: 'Name'
+        },
+        {
+          name: 'age',
+          label: 'Age'
+        },
+        {
+          name: 'salary',
+          label: 'Salary'
+        },
+        {
+          name: 'remark',
+          label: 'Remark'
+        }
+      ],
       styles: {
         header: 'font-size: 14px; font-weight: bold; padding: 0 10px;',
         body: 'font-size: 14px; padding: 0 10px;'
       }
     }
   },
+  computed: {
+    fitColumns () {
+      return this.autoWidthColumns.map(a => a.name)
+    }
+  },
   methods: {
     // formatter (row, column, cellValue, index) {
     formatter (row, column, cellValue) {
+      if (column.property !== 'salary') return cellValue
       // 获取字段名
       // console.log(column.property)
       return currency(cellValue)
@@ -228,6 +257,19 @@ export default {
         }
       })
       return sums
+    },
+    handleReverseColumn () {
+      // this.autoWidthColumns = 
+      this.autoWidthColumns.reverse()
+    },
+    handleDynamicAutoColumn () {
+      this.autoWidthColumns = [
+        {
+          name: 'remark',
+          label: 'Remark'
+        },
+        ...this.autoWidthColumns.slice(0, 2)
+      ]
     }
   }
 }

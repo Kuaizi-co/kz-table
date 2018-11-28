@@ -35,7 +35,10 @@ export default {
     data () {
       this.$nextTick(() => this.setAutoFitColumn())
     },
-    columns () {
+    columns (columns) {
+      this.$nextTick(() => this.setAutoFitColumn())
+    },
+    fitColumns (v) {
       this.$nextTick(() => this.setAutoFitColumn())
     }
   },
@@ -54,7 +57,9 @@ export default {
       // the api is get data by columns property
       const columns = this.layout.getFlattenColumns()
       // show-summary
-      const summaryColumns = getColumnSummary(this)
+      const summaryColumns = this.showSummary ? getColumnSummary(this) : []
+      let summaryColRect
+      let summaryColWidth = 0
       // Each column's settings
       this.columns.forEach((col, idx) => {
         const curColumn = columns.find(item => item.id === col.id)
@@ -72,9 +77,11 @@ export default {
         const bodyColRect = fnGetTextRect(objMaxLenItem.value, this.fitStyles.body)
         const bodyColWidth = bodyColRect.width + borderWidth || curColumn.minWidth
 
-        // summary
-        const summaryColRect = fnGetTextRect(summaryColumns[idx], this.fitStyles.body)
-        const summaryColWidth = summaryColRect.width + borderWidth || curColumn.minWidth
+        // show summary
+        if (this.showSummary) {
+          summaryColRect = fnGetTextRect(summaryColumns[idx] || '', this.fitStyles.body)
+          summaryColWidth = summaryColRect.width + borderWidth || curColumn.minWidth
+        }
 
         // adjust minimum width of every columns
         curColumn.minWidth = Math.ceil(Math.max(
