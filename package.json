@@ -10,6 +10,7 @@
     "lib:build": "set MODE=lib&&vue build kz-table.js -t lib -n kzTable",
     "deploy": "sh deploy.sh",
     "review": "npm run build && http-server -o",
+    "prerelease": "npm run lib:build",
     "release": "release-it"
   },
   "keywords": [

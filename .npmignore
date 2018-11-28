@@ -15,3 +15,6 @@ TODO.md
 doc
 vue.config.js
 App.vue
+dist/demo.html
+kz-table/
+main.js
