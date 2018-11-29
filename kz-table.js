@@ -85,9 +85,9 @@ export default {
 
         // adjust minimum width of every columns
         curColumn.minWidth = Math.ceil(Math.max(
-                                  col.sortable ? headerColWidth + 17 : headerColWidth,
-                                  bodyColWidth,
-                                  summaryColWidth
+          col.sortable ? headerColWidth + 17 : headerColWidth,
+          bodyColWidth,
+          summaryColWidth
         ))
       })
       // run once layout api
