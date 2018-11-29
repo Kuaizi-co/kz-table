@@ -2,15 +2,22 @@
   "name": "@kuaizi/kz-table",
   "version": "2.0.12",
   "description": "It's set auto columns width to el-table, fit columns",
-  "main": "./dist/kzTable.umd.min.js",
+  "main": "./dist/kzTable.js",
   "repository": "https://github.com/kuaizi-co/kz-table.git",
   "scripts": {
     "dev": "vue serve",
+    "lint": "eslint kz-table.js",
     "build": "set NODE_ENV=build&&vue build",
-    "lib:build": "set MODE=lib&&vue build kz-table.js -t lib -n kzTable",
+    "clean": "rimraf ./dist",
+    "webpack-lib:build": "set MODE=lib&&vue build kz-table.js -t lib -n kzTable",
+    "lib:build-cjs": "set MODE=&& rollup -c",
+    "lib:build-common": "set MODE=common && rollup -c",
+    "lib:build-esm": "set MODE=esm && rollup -c",
+    "lib:build-umd": "set MODE=umd && rollup -c",
+    "lib:build": "npm run lint && npm run lib:build-cjs && npm run lib:build-common && npm run lib:build-esm && npm run lib:build-umd",
     "deploy": "sh deploy.sh",
     "review": "npm run build && http-server -o",
-    "prerelease": "npm run lib:build",
+    "prerelease": "npm run clean && npm run lib:build",
     "release": "release-it"
   },
   "keywords": [
@@ -23,7 +30,17 @@
     "element-ui": "^2.4.9"
   },
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-runtime": "^6.26.0",
     "conventional-changelog-cli": "^2.0.11",
-    "release-it": "^8.0.0"
+    "eslint": "^5.9.0",
+    "release-it": "^8.0.0",
+    "rimraf": "^2.6.2",
+    "rollup": "^0.67.3",
+    "rollup-plugin-babel": "^3.0.7",
+    "rollup-plugin-commonjs": "^9.2.0"
   }
 }
