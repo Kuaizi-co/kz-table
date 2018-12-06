@@ -83,3 +83,6 @@ dist
 
 kz-table/
 dist/
+
+package-lock.json
+yarn.lock
