@@ -34,15 +34,31 @@ export const flattenData = function (data) {
 }
 
 // Get  string length of each item in array
-export const maxNumberInArray = function (data, formatter, row = [], col) {
+export const maxNumberInArray = function (data, formatter, rowData = [], col) {
   let result = {
     value: '',
     length: 0,
     index: -1
   }
 
+  let rows = []
+  Object.getOwnPropertyNames(rowData).forEach((prop) => {
+    rowData[prop].forEach((value, index) => {
+      let row = rows[index]
+      if(!row){
+        row = {}
+        rows.push(row)
+      }
+      row[prop] = value
+    })
+  })
+
+  if(data === null || data === undefined){
+    data = rows.map(() => null)
+  }
+
   Array.isArray(data) && data.forEach((value, index) => {
-    let strVal = String(formatter ? formatter(row, col, value || '') : value || '')
+    let strVal = String(formatter ? formatter(rows[index], col, value || '') : value || '')
     if (strVal.length > result.length) {
       result = { value: strVal, length: strVal.length, index }
     }
