@@ -1,3 +1,21 @@
+## [2.0.14](https://github.com/kuaizi-co/kz-table/compare/v2.0.13...v2.0.14) (2019-04-08)
+
+
+### Bug Fixes
+
+* [#5](https://github.com/kuaizi-co/kz-table/issues/5) ([499d0b0](https://github.com/kuaizi-co/kz-table/commit/499d0b0))
+
+
+
+## [2.0.14](https://github.com/kuaizi-co/kz-table/compare/v2.0.13...v2.0.14) (2019-04-08)
+
+
+### Bug Fixes
+
+* [#5](https://github.com/kuaizi-co/kz-table/issues/5) ([499d0b0](https://github.com/kuaizi-co/kz-table/commit/499d0b0))
+
+
+
 ## [2.0.13](https://github.com/kuaizi-co/kz-table/compare/v2.0.12...v2.0.13) (2018-11-29)
 
 
