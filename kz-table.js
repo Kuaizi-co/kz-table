@@ -73,7 +73,7 @@ export default {
         const headerColWidth = headerColRect.width + borderWidth || curColumn.minWidth
 
         // tbody td
-        const objMaxLenItem = maxNumberInArray(data[curColumn.property], col.formatter, [], col)
+        const objMaxLenItem = maxNumberInArray(data[curColumn.property], col.formatter, data, col)
         const bodyColRect = fnGetTextRect(objMaxLenItem.value, this.fitStyles.body)
         const bodyColWidth = bodyColRect.width + borderWidth || curColumn.minWidth
 
