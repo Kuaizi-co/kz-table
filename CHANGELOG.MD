@@ -1,3 +1,11 @@
+# [3.0.0](https://github.com/kuaizi-co/kz-table/compare/v2.1.0...v3.0.0) (2019-07-27)
+
+
+
+## [2.1.1](https://github.com/kuaizi-co/kz-table/compare/v2.1.0...v2.1.1) (2019-07-27)
+
+
+
 ## [2.0.14](https://github.com/kuaizi-co/kz-table/compare/v2.0.13...v2.0.14) (2019-04-08)
 
 

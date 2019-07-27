@@ -1,6 +1,6 @@
 {
   "name": "@kuaizi/kz-table",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "description": "It's set auto columns width to el-table, fit columns",
   "main": "./dist/index.js",
   "module": "./dist/index.esm.js",
