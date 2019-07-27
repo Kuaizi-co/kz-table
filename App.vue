@@ -47,6 +47,44 @@
     </el-table-column>
   </el-table>
 
+  <h2>Max-width</h2>
+  <el-table 
+    :data="data"
+    border
+    auto-fit-column
+  >
+    <el-table-column
+      label="姓名2222"
+      prop="name"
+      fixed
+    ></el-table-column>
+    <el-table-column
+      label="年龄3333"
+      prop="age"
+      :max-width="130"
+    ></el-table-column>
+    <el-table-column
+      v-for="(option, index) in options"
+      :label="option.label"
+      :prop="option.prop"
+      :key="index"
+      :max-width="100"
+      sortable
+      auto-fit
+    ></el-table-column>
+    <el-table-column
+      label="年龄"
+      width="100"
+    >
+      <template slot="header">
+        <el-input
+          v-model="search"
+          size="mini"
+          placeholder="Type to search"/>
+      </template>
+    </el-table-column>
+  </el-table>
+
   <h2>Some Columns auto-fit (name & age)</h2>
 
   <el-button @click="handleAddColumn" type="primary">Add Column</el-button>
@@ -181,7 +219,7 @@ export default {
           name: '李四',
           age: 24,
           salary: 525000,
-           remark: 'sdfsdfsdfsdfsdfsdff'
+          remark: 'sdfsdfsdfsdfsdfsdff'
         }
       ],
       options: [],
@@ -223,7 +261,7 @@ export default {
       return currency(cellValue)
     },
     handleAddColumn () {
-      this.options.push({ prop: 'remark', label: '备注' })
+      this.options.push({ prop: 'remark', label: '备注', maxWidth: 130 })
     },
     handleAddRows () {
       this.data.push({
