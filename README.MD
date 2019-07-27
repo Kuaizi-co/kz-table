@@ -6,12 +6,20 @@
 
 ## USAGE
 
-```
+```js
 import kzTable from '@kuaizi/kz-table'
 
 // 默认标签名是el-table
 // 重载el-table
-Vue.component(kzTable.name, kzTable)
+// Vue.component(kzTable.name, kzTable)
+Vue.use(kzTable)
+
+// 或者
+// 自定义组件名
+Vue.use(kzTable, {
+  table: 'KzTable',
+  column: 'KzTableColumn'
+})
 ```
 
 
