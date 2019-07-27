@@ -1,17 +1,27 @@
 import { Table } from 'element-ui'
-import { getTextRect, flattenData, maxNumberInArray, getColumnSummary } from './utils'
+import {
+  getTextRect,
+  removeTextRect,
+  flattenData,
+  maxNumberInArray,
+  getColumnSummary
+} from './utils'
 
 const fnGetTextRect = getTextRect()
 
 export default {
+
   name: 'ElTable',
+
   extends: Table,
+
   props: {
     // Set auto-fit column's width
     autoFitColumn: {
       type: Boolean,
       default: false
     },
+
     // the css style width thead th and tbody td
     fitStyles: {
       default () {
@@ -20,37 +30,55 @@ export default {
           body: 'font-size: 14px; padding: 0 10px;'
         }
       },
+
       validator (option) {
         if (typeof option !== 'object' || !option) return false
         if (!('header' in option) || !('body' in option)) return false
         return true
       }
     },
+
     // we can set some columns auto-fit
     fitColumns: {
       type: Array
     }
   },
+
   watch: {
     data () {
       this.$nextTick(() => this.setAutoFitColumn())
     },
+
     columns () {
       this.$nextTick(() => this.setAutoFitColumn())
     },
+
     fitColumns () {
       this.$nextTick(() => this.setAutoFitColumn())
     }
   },
+
   methods: {
+    // support max-width
+    initColsObj () {
+      this.colObjs = this.$children.reduce((prev, cur) => {
+        if(cur.prop) {
+          prev[cur.prop] = cur.maxWidth || cur.$attrs['max-width'] || 0
+        }
+        return prev
+      }, {})
+    },
+
     setAutoFitColumn () {
       // It's false, Use original el-table
       if (!this.autoFitColumn) return
       if (!this.data) return
       // collection data by columns property(field name)
       const objData = flattenData(this.data)
+      this.initColsObj()
       this.handlerAutoFitColumn(objData)
     },
+
     handlerAutoFitColumn (data) {
       // adapt to 1px border
       const borderWidth = this.border ? 1 : 0
@@ -68,6 +96,8 @@ export default {
         // It's not exist in fit-columns array
         if (this.fitColumns && this.fitColumns.length && !this.fitColumns.includes(curColumn.property)) return
 
+        const maxWidth = this.colObjs[curColumn.property] || 0
+
         // thead th
         const headerColRect = fnGetTextRect(col.label, this.fitStyles.header)
         const headerColWidth = headerColRect.width + borderWidth || curColumn.minWidth
@@ -84,15 +114,22 @@ export default {
         }
 
         // adjust minimum width of every columns
-        curColumn.minWidth = Math.ceil(Math.max(
-          col.sortable ? headerColWidth + 17 : headerColWidth,
-          bodyColWidth,
-          summaryColWidth
-        ))
+        const minWidth = Math.ceil(
+          Math.max(
+            col.sortable ? headerColWidth + 17 : headerColWidth,
+            bodyColWidth,
+            summaryColWidth
+          )
+        )
+        curColumn.minWidth = maxWidth ? Math.min(maxWidth, minWidth) : minWidth
       })
       // run once layout api
       this.doLayout()
       this.$emit('doLayout')
+    },
+
+    clearTextElement () {
+      removeTextRect()
     }
   }
 }
