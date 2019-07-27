@@ -1,9 +1,7 @@
-var commonjs = require('rollup-plugin-commonjs')
-const babel = require("rollup-plugin-babel")
+const commonjs = require('rollup-plugin-commonjs')
+const babel = require('rollup-plugin-babel')
 const pkg = require('./package.json')
-const mode = (process.env.MODE || 'default').trim()
 const now = (new Date()).toLocaleString() || ''
-console.log('😎 building ' + mode)
 
 const banner = `
 /**
@@ -18,66 +16,96 @@ const banner = `
 `
 
 const config = {
-  default: {
-    output: {
-      file: 'dist/kzTable.js',
-      format: 'cjs',
-      banner
+  'index': {
+    commonjs: {
+      output: {
+        file: 'dist/index.js',
+        format: 'cjs',
+        banner
+      },
+      plugins: [
+        commonjs({
+          include: 'node_modules/**',
+        }),
+        babel({
+          babelrc: false,
+          presets: [['es2015', { modules: false }]],
+        })
+      ]
     },
-    plugins: [
-      babel({
-        babelrc: false,
-        presets: [['es2015', { modules: false }]],
-      })
-    ]
+    esm: {
+      output: {
+        file: 'dist/index.esm.js',
+        format: 'es',
+        banner
+      },
+      plugins: []
+    }
   },
-  umd: {
-    output: {
-      file: 'dist/kzTable.umd.js',
-      format: 'umd',
-      name: 'kzTable',
-      banner
+
+  'table': {
+    commonjs: {
+      output: {
+        file: 'dist/kz-table.js',
+        format: 'cjs',
+        banner
+      },
+      plugins: [
+        commonjs({
+          include: 'node_modules/**',
+        }),
+        babel({
+          babelrc: false,
+          presets: [['es2015', { modules: false }]],
+        })
+      ]
     },
-    plugins: [
-      babel({
-        babelrc: false,
-        presets: [['es2015', { modules: false }]],
-      })
-    ]
+    esm: {
+      output: {
+        file: 'dist/kz-table.esm.js',
+        format: 'es',
+        banner
+      },
+      plugins: []
+    }
   },
-  esm: {
-    output: {
-      file: 'dist/kzTable.esm.js',
-      format: 'es',
-      banner
+
+  'table-column': {
+    commonjs: {
+      output: {
+        file: 'dist/kz-table-column.js',
+        format: 'cjs',
+        banner
+      },
+      plugins: [
+        babel({
+          babelrc: false,
+          presets: [['es2015', { modules: false }]],
+        }),
+        commonjs()
+      ]
     },
-    plugins: []
-  },
-  common: {
-    output: {
-      file: 'dist/kzTable.common.js',
-      format: 'cjs',
-      banner
-    },
-    plugins: [
-      commonjs({
-        include: 'node_modules/**',
-      }),
-      babel({
-        babelrc: false,
-        presets: [['es2015', { modules: false }]],
-      })
-    ]
+    esm: {
+      output: {
+        file: 'dist/kz-table-column.esm.js',
+        format: 'es',
+        banner
+      },
+      plugins: []
+    }
   }
 }
 
-export default {
-  input: './kz-table.js',
-  output: Object.assign(config[mode].output, {
-    globals: {
-      'element-ui': 'element-ui'
-    }
-  }),
-  external: [ 'element-ui' ],
-  plugins: config[mode].plugins
-}
+export default ['index', 'table', 'table-column'].reduce((prev, file) => {
+  const c = Object.keys(config[file]).map(mode => ({
+    input: `./src/${file}.js`,
+    output: Object.assign(config[file][mode].output, {
+      globals: {
+        'element-ui': 'element-ui'
+      }
+    }),
+    external: [ 'element-ui' ],
+    plugins: config[file][mode].plugins
+  }))
+  return prev.concat(c)
+}, [])
