@@ -27,7 +27,7 @@ Vue.use(kzTable, {
 
 add `auto-fit-column` and `fit-styles`
 
-```
+```html
 <el-table 
     :data="data"
     border
@@ -109,7 +109,7 @@ add `auto-fit-column` and `fit-styles`
 
 ### add attribute `max-width`,not support v-bind
 
-```
+```html
 <el-table-column
     v-for="(option, index) in options"
     :label="option.label"
@@ -121,7 +121,7 @@ add `auto-fit-column` and `fit-styles`
 
 ### use `table-column`
 
-```
+```js
 import kzTableColumn from './src/table-column'
 Vue.component(kzTableColumn.name, kzTableColumn)
 
@@ -136,7 +136,7 @@ Vue.component(kzTableColumn.name, kzTableColumn)
 
 #### js
 
-```
+```js
 export default {
   data () {
     return {
@@ -154,7 +154,7 @@ export default {
 
 add `auto-fit-column` 、 `fit-styles` and `fit-columns`
 
-```
+```html
 <el-table 
     :data="data"
     border
@@ -200,7 +200,7 @@ add `auto-fit-column` 、 `fit-styles` and `fit-columns`
 
 #### js
 
-```
+```js
 export default {
   data () {
     return {
